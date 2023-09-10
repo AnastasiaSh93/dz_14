@@ -19,26 +19,45 @@ public class xPath {
 
 
     @Test()
-    public void secondTest() {
+    public void secondTest()  {
 
         Session.get().webdriver().get("https://demoqa.com/webtables");
         Session.get().webdriver().findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/div[2]/div[1]/button")).click();
         Session.get().webdriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        //Session.get().webdriver().switchTo().frame("modal-content");
+        //fill in user data and save
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"firstName\"]")).sendKeys("Kate");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"lastName\"]")).sendKeys("Johns");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"userEmail\"]")).sendKeys("kate.johns@gmail.com");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"age\"]")).sendKeys("30");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"salary\"]")).sendKeys("100000");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"department\"]")).sendKeys("Sales");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"submit\"]")).click();
 
+        Session.get().webdriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[1]/div[2]/input")).sendKeys("Kate");
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[2]/div[2]/input")).sendKeys("Johns");
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[3]/div[2]/input")).sendKeys("kate.johns@gmail.com");
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[4]/div[2]/input")).sendKeys("30");
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[5]/div[2]/input")).sendKeys("100000");
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[6]/div[2]/input")).sendKeys("Sales");
+        //verify the user is created
+        Session.get().webdriver().findElement(By.xpath("//*[contains(text(),'Kate')]"));
+        Session.get().webdriver().findElements(By.xpath("//*[contains(text(),'Johns')]"));
+        Session.get().webdriver().findElements(By.xpath("//*[contains(text(),'kate.johns@gmail.com')]"));
+        Session.get().webdriver().findElements(By.xpath("//*[contains(text(),'30')]"));
+        Session.get().webdriver().findElements(By.xpath("//*[contains(text(),'100000')]"));
+        Session.get().webdriver().findElements(By.xpath("//*[contains(text(),'Sales')]"));
 
-        Session.get().webdriver().findElement(By.xpath("/html/body/div[4]/div/div/div[2]/form/div[7]/div/button")).click();
+        Session.get().webdriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        //update user data
+        Session.get().webdriver().findElement(By.xpath("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div[1]/div[2]/div[3]/div/div[7]/div/span[1]")).click();
+
+        Session.get().webdriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"lastName\"]")).sendKeys("Black");
+        Session.get().webdriver().findElement(By.xpath("//*[@id=\"submit\"]")).click();
+
+        //verify data is updated
+        Session.get().webdriver().findElement(By.xpath("//*[contains(text(),'Black')]"));
 
         Sleep.sleep(5000);
     }
-
 }
 
